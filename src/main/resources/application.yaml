@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: streaming-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/netflux
+    username: zel
+    password: cheese
