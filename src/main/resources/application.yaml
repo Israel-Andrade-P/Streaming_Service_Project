@@ -5,3 +5,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/netflux
     username: zel
     password: cheese
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
