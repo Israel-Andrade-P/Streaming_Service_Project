@@ -8,11 +8,11 @@ import com.zeldev.streaming_service.request.SubscriberRequest;
 import java.util.Arrays;
 
 public class SubscriberUtils {
-    public static Subscriber toSub (SubscriberRequest request) {
+    public static Subscriber toSub (SubscriberRequest request, String encodedPwd) {
         return Subscriber.builder()
                 .username(request.username())
                 .email(request.email())
-                .password(request.password())
+                .password(encodedPwd)
                 .accountType(typeValidation(request.accountType()))
                 .build();
     }

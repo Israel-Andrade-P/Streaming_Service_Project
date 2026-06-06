@@ -2,6 +2,7 @@ package com.zeldev.streaming_service.controllers;
 
 import com.zeldev.streaming_service.request.SubscriberRequest;
 import com.zeldev.streaming_service.service.SubscriberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -18,8 +20,8 @@ public class SubscriberController {
     private final SubscriberService service;
 
     @PostMapping("/subscribe")
-    public ResponseEntity<String> register(@RequestBody SubscriberRequest request) {
+    public ResponseEntity<String> register(@RequestBody @Valid SubscriberRequest request) {
         service.add(request);
-        return ResponseEntity.status(OK).body("Account created!");
+        return ResponseEntity.status(CREATED).body("Account created!");
     }
 }

@@ -1,5 +1,6 @@
 package com.zeldev.streaming_service.model;
 
+import com.zeldev.streaming_service.enumeration.ProfileType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,6 +23,8 @@ public class Profile {
     private Long id;
     @Column(name = "profile_name", nullable = false)
     private String profileName;
+    @Enumerated(EnumType.STRING)
+    private ProfileType profileType;
     @ManyToOne
     @JoinColumn(name = "subscriber_id")
     private Subscriber subscriber;

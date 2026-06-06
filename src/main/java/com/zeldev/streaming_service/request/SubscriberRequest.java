@@ -20,5 +20,4 @@ public record SubscriberRequest(
         @NotNull(message = "Account type field is mandatory")
         @NotEmpty(message = "Account type field is mandatory")
         String accountType
-) {
-}
+) {}
