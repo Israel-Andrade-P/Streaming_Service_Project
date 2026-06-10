@@ -1,10 +1,9 @@
 package com.zeldev.streaming_service.controllers;
 
-import com.zeldev.streaming_service.request.ProfileRequest;
+import com.zeldev.streaming_service.request.ProfileDto;
 import com.zeldev.streaming_service.service.ProfileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +19,7 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @PostMapping("/add")
-    public ResponseEntity<String> addProfile(@RequestBody @Valid ProfileRequest request) {
+    public ResponseEntity<String> addProfile(@RequestBody @Valid ProfileDto request) {
         profileService.add(request);
         return ResponseEntity.status(CREATED).body("Profile added");
     }

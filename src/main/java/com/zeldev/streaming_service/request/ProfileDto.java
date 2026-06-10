@@ -1,8 +1,10 @@
 package com.zeldev.streaming_service.request;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
-public record ProfileRequest(
+@Builder
+public record ProfileDto(
         @NotNull(message = "Profile name required")
         String profileName,
         @NotNull(message = "Profile type required")
