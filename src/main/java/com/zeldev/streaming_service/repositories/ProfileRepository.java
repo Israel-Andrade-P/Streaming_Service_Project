@@ -11,4 +11,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
     @Query("SELECT p FROM Profile p WHERE p.subscriber.email=?1")
     List<Profile> findProfiles(String email);
+
+    @Query("SELECT COUNT(p) FROM Profile p WHERE p.subscriber.id=?1")
+    long countBySubscriberId(Long id);
 }
