@@ -17,7 +17,7 @@ public class SubscriberUtils {
                 .build();
     }
 
-    private  static AccountType typeValidation(String accType) {
+    public  static AccountType typeValidation(String accType) {
         return Arrays.stream(AccountType.values())
                 .filter(type -> type.name().equals(accType))
                 .findFirst()
