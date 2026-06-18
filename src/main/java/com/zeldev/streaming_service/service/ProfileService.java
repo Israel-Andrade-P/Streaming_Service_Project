@@ -51,7 +51,7 @@ public class ProfileService {
     private void checkProfileLimit(Subscriber sub) {
         var maxProfiles = sub.getAccountType().getMaxProfiles();
 
-        if (maxProfiles == 0) throw new AccountProfileException("Profile creation not available for Basic accounts");
+        if (maxProfiles == 1) throw new AccountProfileException("Profile creation not available for Basic accounts");
 
         long profileCount = profileRepository.countBySubscriberId(sub.getId());
 
