@@ -1,6 +1,9 @@
 package com.zeldev.streaming_service.service;
 
 import com.zeldev.streaming_service.exception.AccountProfileException;
+import com.zeldev.streaming_service.exception.ProfileNotFoundException;
+import com.zeldev.streaming_service.exception.ProfileNotSelectedException;
+import com.zeldev.streaming_service.model.Profile;
 import com.zeldev.streaming_service.model.Subscriber;
 import com.zeldev.streaming_service.repositories.ProfileRepository;
 import com.zeldev.streaming_service.repositories.SubscriberRepository;
@@ -36,11 +39,25 @@ public class ProfileService {
 
     public void selectProfile(Long id, HttpSession session) throws AccessDeniedException {
         var sub = getSub();
-        var profile = profileRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Profile doesn't exist"));
+        var profile = getProfile(id);
 
         if (!sub.getId().equals(profile.getSubscriber().getId())) throw new AccessDeniedException("Not your profile!");
 
         session.setAttribute("selectedProfile", id);
+    }
+
+    public Profile getProfileFromSession(HttpSession session) {
+        Long profileId = (Long) session.getAttribute("selectedProfile");
+        var sub = getSub();
+
+        var profileCount = profileRepository.countBySubscriberId(sub.getId());
+
+        if (profileId == null) {
+            if (profileCount <= 1) return profileRepository.findProfiles(sub.getEmail()).getFirst();
+            else throw new ProfileNotSelectedException("No profile selected");
+        }
+
+        return getProfile(profileId);
     }
 
     private Subscriber getSub() {
@@ -56,5 +73,9 @@ public class ProfileService {
         long profileCount = profileRepository.countBySubscriberId(sub.getId());
 
         if (profileCount >= maxProfiles) throw new AccountProfileException("Maximum profile limit reached");
+    }
+
+    private Profile getProfile(Long id) {
+        return profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException("Profile doesn't exist"));
     }
 }

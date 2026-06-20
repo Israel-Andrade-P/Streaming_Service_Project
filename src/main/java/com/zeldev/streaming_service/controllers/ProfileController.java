@@ -38,7 +38,7 @@ public class ProfileController {
     }
 
     @GetMapping("/current")
-    public ResponseEntity<String> getProfiles(HttpSession session) {
+    public ResponseEntity<String> getProfile(HttpSession session) {
         var profileId = (Long) session.getAttribute("selectedProfile");
         return ResponseEntity.status(OK).body(String.format("Current Profile: %d", profileId));
     }

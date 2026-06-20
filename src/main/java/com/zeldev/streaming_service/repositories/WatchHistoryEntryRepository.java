@@ -14,4 +14,7 @@ public interface WatchHistoryEntryRepository extends JpaRepository<WatchHistoryE
     ORDER BY whe.watchedAt DESC
 """)
     List<WatchHistoryEntry> findHistoryByProfile(Long profileId);
+
+    @Query("SELECT whe FROM WatchHistoryEntry whe WHERE whe.profile.id=?1 ORDER BY whe.watchedAt DESC")
+    List<WatchHistoryEntry> findByProfileId(Long id);
 }

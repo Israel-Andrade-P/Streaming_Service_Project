@@ -28,4 +28,9 @@ public class WatchHistoryEntry {
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime watchedAt;
+
+    public WatchHistoryEntry(Profile profile, Movie movie) {
+        this.profile = profile;
+        this.movie = movie;
+    }
 }
